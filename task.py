@@ -1,8 +1,12 @@
 import json
-tasks = []
+
+try:
+    with open("taskList.json","r") as file:
+        tasks = json.load(file)
+except:
+    task = []
 
 def  enterTask():
-        
     while True:
         taskIn = input("Enter a Task and Enter Done to finish inputting")
         if taskIn == "Done":
@@ -11,14 +15,15 @@ def  enterTask():
           tasks.append(taskIn)
 
 def deleteTask():
-    item = input("Enter Serial Number to delete")
-    del tasks[int(item)-1]
+    try:
+        item = input("Enter Serial Number in range to delete")
+        del tasks[int(item)-1]
+    except:
+        print("Invalid Input bruh")
 
 def  showTask():
-    with open("taskList.json","r") as file:
-        printList = json.load(file)
-        for i in range(len(printList)):
-            print(i+1, tasks[i])
+    for i in range(len(tasks)):
+        print(f"{i+1}. {tasks[i]}")
 
 def saveChanges():
     #ask for permission before replacing
