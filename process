@@ -1,0 +1,56 @@
+Step 9 — Your Actual Build Order
+PHASE 1
+
+Terminal app only
+
+add tasks
+save tasks
+load tasks
+complete tasks
+
+Learn:
+
+lists
+dictionaries
+functions
+JSON
+
+
+PHASE 2
+
+Projects + subtasks
+
+relationships
+task hierarchy
+
+Learn:
+
+nested data
+IDs
+PHASE 3
+
+Calendar + recurring tasks
+
+Learn:
+
+date/time
+scheduling logic
+PHASE 4
+
+NLP input
+
+Learn:
+
+string parsing
+regex
+NLP libraries later
+PHASE 5
+
+GUI/Web app
+
+NOW learn:
+
+frontend
+APIs
+databases
+frameworks
