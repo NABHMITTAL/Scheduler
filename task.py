@@ -1,4 +1,16 @@
 import json
+class Task():
+    def __init__(self,id,title,priority):
+        self.title = title
+        self.priority = priority
+        self.done = False
+        self.id = id
+    
+    def markDone(self):
+        self.done = True
+    
+    def display(self):
+        print(f"{self.id}. {self.title} | Priority: {self.priority} | Status: {self.done}")
 
 try:
     with open("taskList.json","r") as file:
