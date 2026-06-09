@@ -10,7 +10,7 @@ class Task():  #task class with constructor , marlDone, display, toDict, fromDic
         self.done = True
     
     def display(self):
-        print(f"{self.id}. {self.title} | Priority: {self.priority} | Status: {self.done}")
+        print(f"\t{self.id}. {self.title} | Priority: {self.priority} | Status: {self.done}\n")
 
     def toDict(self):
         return{
@@ -68,9 +68,9 @@ class Project(): #project class under construction
     def  enterTask(self): # for taking input of tasks
         print("input Done in Title to finsh givng the input")
         while True:
-            taskId = input("Enter a Task id")
-            title = input("Enter a Task Title")
-            priority = int(input("Enter a Task Priority"))
+            taskId = input("Enter a Task id: ")
+            title = input("Enter a Task Title: ")
+            priority = int(input("Enter a Task Priority: "))
             if title == "Done":
                 break
             else:
@@ -84,6 +84,35 @@ class Project(): #project class under construction
         except:
             print("Invalid Input bruh")
 #i am going crazy
+    def displayProject(self):
+        print(f"\n Project: {self.title}\n")
+        for i in self.tasks:
+            i.display()
+
+    def projectToDict(self):
+        dictator = [] #array to store the shit to send to dictionary
+        for i in self.tasks:
+            dictator.append(i.toDict())
+        return{
+            "projectTitle": self.title,
+            "tasks":dictator            
+        }
+
+    @classmethod
+    def projectFromDict(cls,data):
+        loadedTaskArray = []
+        try:
+            project = cls(data["projectTitle"],)
+
+            for stuff in data["tasks"]:
+                loadedTaskArray.append(Task.fromDict(stuff))
+            project.tasks = loadedTaskArray
+            return project
+        except Exception as e:
+            print(e)
+
+        
+
 
 projectList=[]
 
@@ -97,19 +126,3 @@ def createProject():
         else:
             newProject = Project(name)
             projectList.append(newProject)
-
-
-# t = Task("1", "Test task", 3)
-# t.display()                                                        #   test subject
-
-# data = t.toDict()
-# t2 = Task.fromDict(data)
-# t2.display
-
-# p = Project("Test")
-# # p.tasks.append(Task("1", "A", 1))
-# # p.tasks.append(Task("2", "B", 2))
-# # print(p.title)
-# # for t in p.tasks:
-# #     t.display()
-# p.enterTask()
