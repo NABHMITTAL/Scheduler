@@ -32,6 +32,7 @@ class Task():  #task class with constructor , marlDone, display, toDict, fromDic
         return task
 
 def  loadProject(): #for bringing json to python
+    print("Loading...")
     loadArray = []
     try:
         with open("projectList.json","r") as file:
@@ -39,15 +40,11 @@ def  loadProject(): #for bringing json to python
         for data in loadedData:
             loadArray.append(Project.projectFromDict(data))
         return loadArray
-    except:
+    except Exception as e:
+        print("LOAD ERROR:", e)
         return []
 
 projectList=[]
-    
-try:
-    projectList = loadProject()
-except:
-    projectList = []   #security case if array is empty
 
 
 # def displayTasks(): #for listing tasks test function (old too lazy to delete)
@@ -122,3 +119,7 @@ def saveChanges(): #sending tasks in pythton to json will be changed to work wit
         saveData.append(project.projectToDict())
     with open("projectList.json","w") as file:
            json.dump(saveData,file,indent=4)
+try:
+    projectList = loadProject()
+except:
+    projectList = []   #security case if array is empty
