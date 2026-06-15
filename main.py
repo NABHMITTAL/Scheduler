@@ -1,6 +1,6 @@
 from project import *
 
-print(len(projectList))
+#print(len(projectList))
 
 def projectSubMenu(projectNumber):
     selectedProject = projectList[projectNumber]
@@ -21,8 +21,10 @@ def projectSubMenu(projectNumber):
             selectedProject.enterTask()
         elif choice == "2":
             selectedProject.deleteTask()
-        else:
+        elif choice =="3":
             break
+        else:
+            print("Invalid Input")
 
 
 while True:
@@ -31,7 +33,8 @@ while True:
     print("2. Display Projects")
     print("3. Save")
     print("4. Choose Proect to edit")
-    print("5. Exit")
+    print("5: Delete Project")
+    print("6. Exit")
 
     choice = input("Choice: ")
     if choice =="1":
@@ -46,19 +49,25 @@ while True:
         print("Changes saved or did it >:)")
 
     elif choice =="4":
-        print("Select your project to edit")
+        print("Select your project to edit ")
         serialCounter =1
         for projects in projectList:
             print(f"{serialCounter}. {projects.title}")
             serialCounter+=1
         projectArrayLength = len(projectList)
-        projectChoice = int(input("Select project from menu")) -1 #-1 to handle indexing
-        if projectChoice<projectArrayLength:
-            projectSubMenu(projectChoice)
-        else:
-            print("Invalid inut")
+        try:
+            projectChoice = int(input("Select project from menu ")) -1 #-1 to handle indexing
+            if projectChoice<projectArrayLength and projectChoice>-1:
+                projectSubMenu(projectChoice)
+            else:
+                print("Invalid input")
+        except:
+            print("Invaliud Input")
 
     elif choice == "5":
+        deleteProject()
+
+    elif choice == "6":
         break
     else:
         print("MF FUCK OFF")
