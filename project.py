@@ -1,20 +1,18 @@
 import json
 class Task():  #task class with constructor , marlDone, display, toDict, fromDict
-    def __init__(self,id,title,priority):
+    def __init__(self,title,priority):
         self.title = title
         self.priority = priority
         self.done = False
-        self.id = id
     
     def markDone(self):
         self.done = True
     
     def display(self):
-        print(f"\t{self.id}. {self.title} | Priority: {self.priority} | Status: {self.done}\n")
+        print(f"\t{self.title} | Priority: {self.priority} | Status: {self.done}\n")
 
     def toDict(self):
         return{
-            "id": self.id,
              "title": self.title,
             "priority": self.priority,
             "complete": self.done
@@ -23,7 +21,6 @@ class Task():  #task class with constructor , marlDone, display, toDict, fromDic
     @classmethod
     def fromDict(cls,data):
         task = cls(
-            data["id"],
             data["title"],
             data["priority"],
         )
@@ -57,21 +54,32 @@ class Project(): #project class under construction
         self.tasks = []
 
     def  enterTask(self): # for taking input of tasks
-        print("input Done in Title to finsh givng the input")
-        while True:
-            taskId = input("Enter a Task id: ")
-            title = input("Enter a Task Title: ")
-            priority = int(input("Enter a Task Priority: "))
-            if title == "Done":
-                break
-            else:
-                newTask = Task(taskId,title,priority) 
-                self.tasks.append(newTask)
+        try:
+            print("input Done in Title to finsh givng the input")
+            while True:
+                title = input("Enter a Task Title: ")
+                if title == "":
+                    print("Invalid Input")
+                    continue
+                elif title == "Done":
+                    break
+                else:
+                    priority = int(input("Enter a Task Priority: "))
+                    if priority<=10 and priority>=1:
+                        newTask = Task(title,priority) 
+                        self.tasks.append(newTask)
+                    else:
+                        print("Invalid Input")
+        except:
+            print("Invalid input")
 
     def deleteTask(self): #deleting task based on id will be changed later
         try:
-            item = input("Enter Serial Number in range to delete")
-            del self.tasks[int(item)-1]
+            item = int(input("Enter Serial Number in range to delete "))
+            if item-1>-1 and item-1<len(self.tasks):
+                del self.tasks[int(item)-1]
+            else:
+                print("Invalid Input")
         except:
             print("Invalid Input bruh")
 #i am going crazy
@@ -103,10 +111,12 @@ class Project(): #project class under construction
             print(e)
 
 def createProject():
-    print("Enter Project Names when prompte and input Done when finished")
+    print("Enter Project Names when prompte and input Done when finished ")
     while True:
-        name = input("Enter Project Name")
-        if name == "Done":
+        name = input("Enter Project Name ")
+        if name == "":
+            print("Invalid Input")
+        elif name == "Done":
             break
         else:
             newProject = Project(name)
@@ -119,6 +129,18 @@ def saveChanges(): #sending tasks in pythton to json will be changed to work wit
         saveData.append(project.projectToDict())
     with open("projectList.json","w") as file:
            json.dump(saveData,file,indent=4)
+
+def deleteProject(): 
+    try:
+        item = int(input("Enter Serial Number in range to delete "))
+        if item-1>-1 and item-1<len(projectList):
+            del projectList[int(item)-1]
+        else:
+            print("Invalid Input")
+    except:
+        print("Invalid Input bruh")
+
+
 try:
     projectList = loadProject()
 except:
