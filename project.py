@@ -9,7 +9,14 @@ class Task():  #task class with constructor , marlDone, display, toDict, fromDic
         self.done = True
     
     def display(self):
-        print(f"\t{self.title} | Priority: {self.priority} | Status: {self.done}\n")
+        if self.done == True:
+            print(f"\t [ X ] {self.title} | Priority: {self.priority}\n")
+        else:
+            print(f"\t [    ] {self.title} | Priority: {self.priority}\n")
+
+    def rename(self):
+        renameInput = input("Enter New Name")
+        self.title = renameInput
 
     def toDict(self):
         return{
@@ -82,6 +89,11 @@ class Project(): #project class under construction
                 print("Invalid Input")
         except:
             print("Invalid Input bruh")
+
+    def rename(self):
+        renameInput = input("Enter New Name")
+        self.title = renameInput
+
 #i am going crazy
     def displayProject(self):
         print(f"\n Project: {self.title}\n")
